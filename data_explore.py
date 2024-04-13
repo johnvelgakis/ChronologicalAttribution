@@ -71,7 +71,7 @@ def plot_sample_length_distribution(sample_texts):
     # Arguments
         samples_texts: list, sample texts.
     """
-    plt.hist([len(s) for s in sample_texts], 50)
+    plt.hist([len(s) for s in sample_texts], 10)
     plt.xlabel('Length of a sample')
     plt.ylabel('Number of samples')
     plt.title('Sample length distribution')
