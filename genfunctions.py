@@ -10,6 +10,7 @@ import tensorflow as tf
 from sklearn.metrics import mean_squared_error
 from tensorflow.keras import models, layers
 
+import matplotlib.pyplot as plt
 
 # Vectorization parameters
 # Range (inclusive) of n-gram sizes for tokenizing text.
@@ -62,6 +63,37 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     x_val = selector.transform(x_val).astype('float32')
     return x_train, x_val
 
+def plot_metrics(history):
+    # Extract the training and validation metrics
+    train_loss = history.history['loss']
+    val_loss = history.history['val_loss']
+    train_mae = history.history['mae']
+    val_mae = history.history['val_mae']
+
+    # Create subplots
+    fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(8, 12))
+
+    # Plot the loss curves
+    axes[0].plot(train_loss, label='Training Loss')
+    axes[0].plot(val_loss, label='Validation Loss')
+    axes[0].set_xlabel('Epochs')
+    axes[0].set_ylabel('Loss')
+    axes[0].set_title('Training and Validation Loss')
+    axes[0].legend()
+
+    # Plot the accuracy curves
+    axes[1].plot(train_mae, label='Training Mean Absolute Error')
+    axes[1].plot(val_mae, label='Validation Mean Absolute Error')
+    axes[1].set_xlabel('Epochs')
+    axes[1].set_ylabel('Accuracy')
+    axes[1].set_title('Training and Validation Accuracy')
+    axes[1].legend()
+
+    # Adjust spacing between subplots
+    plt.subplots_adjust(hspace=0.4)
+
+    # Display the plot
+    plt.show()
 
 
 
