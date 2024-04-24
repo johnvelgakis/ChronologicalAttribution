@@ -59,8 +59,8 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     # Select top 'k' of the vectorized features.
     selector = SelectKBest(f_classif, k=min(TOP_K, x_train.shape[1]))
     selector.fit(x_train, train_labels)
-    x_train = selector.transform(x_train).astype('float32')
-    x_val = selector.transform(x_val).astype('float32')
+    x_train = selector.transform(x_train).astype('float64')
+    x_val = selector.transform(x_val).astype('float64')
     return x_train, x_val
 
 def plot_metrics(history):
