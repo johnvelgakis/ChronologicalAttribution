@@ -4,21 +4,17 @@ from sklearn.feature_extraction.text import CountVectorizer
 from collections import Counter
 
 
-
 def get_num_words_per_sample(sample_texts):
     '''
     Returns the median of words per sample.
     '''
     num_words = [len(s.split()) for s in sample_texts]
     return np.median(num_words), sum(num_words)
-    
-
-    
+       
 def plot_frequency_distribution_of_ngrams(sample_texts,
                                           ngram_range=(1, 2),
                                           num_ngrams=50):
     """Plots the frequency distribution of n-grams.
-
     # Arguments
         samples_texts: list, sample texts.
         ngram_range: tuple (min, mplt), The range of n-gram values to consider.
@@ -63,7 +59,6 @@ def plot_frequency_distribution_of_ngrams(sample_texts,
     plt.title('Frequency distribution of n-grams')
     plt.xticks(idx, ngrams, rotation=45, ha='right', rotation_mode='anchor')
     plt.show()
-
 
 def plot_sample_length_distribution(sample_texts):
     """Plots the sample length distribution.

@@ -1,16 +1,14 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif
-
+from sklearn.metrics import mean_squared_error
+import tensorflow as tf
 from tensorflow.python.keras import models
 from tensorflow.python.keras.layers import Dense
 from tensorflow.python.keras.layers import Dropout
-
-import tensorflow as tf
-from sklearn.metrics import mean_squared_error
 from tensorflow.keras import models, layers
-
 import matplotlib.pyplot as plt
+
 
 # Vectorization parameters
 # Range (inclusive) of n-gram sizes for tokenizing text.
@@ -62,6 +60,12 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     x_train = selector.transform(x_train).astype('float64')
     x_val = selector.transform(x_val).astype('float64')
     return x_train, x_val
+
+
+
+
+
+
 
 def plot_metrics(history):
     # Extract the training and validation metrics
