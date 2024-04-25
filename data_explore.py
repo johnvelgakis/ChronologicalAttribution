@@ -13,7 +13,7 @@ def get_num_words_per_sample(sample_texts):
        
 def plot_frequency_distribution_of_ngrams(sample_texts,
                                           ngram_range=(1, 2),
-                                          num_ngrams=50):
+                                          num_ngrams=20):
     """Plots the frequency distribution of n-grams.
     # Arguments
         samples_texts: list, sample texts.
