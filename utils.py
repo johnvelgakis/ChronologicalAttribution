@@ -33,6 +33,7 @@ def ngram_vectorize(train_texts, test_texts):
             'decode_error': 'replace',
             'analyzer': TOKEN_MODE,  # Split text into word tokens.
             'max_df': 0.9,
+            # 'min_df': 0.05,
             'norm': 'l2', # Normalizes row vectors to have unit norm.
             'max_features': TOP_K,
     }
