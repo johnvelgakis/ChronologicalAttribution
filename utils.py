@@ -14,17 +14,14 @@ import matplotlib.pyplot as plt
 # Range (inclusive) of n-gram sizes for tokenizing text.
 NGRAM_RANGE = (1, 2)
 
-# Limit on the number of features. We use the top 20K features.
-TOP_K = 20000
+# Limit on the number of features. We use the top 2K features.
+TOP_K = 2000
 
 # Whether text should be split into word or character n-grams.
 # One of 'word', 'char'.
 TOKEN_MODE = 'word'
 
-# Minimum document/corpus frequency below which a token will be discarded.
-MIN_DOCUMENT_FREQUENCY = 10
-
-def ngram_vectorize(train_texts, train_labels, val_texts):
+def ngram_vectorize(train_texts, test_texts):
     """Vectorizes texts as n-gram vectors.
 
     1 text = 1 tf-idf vector the length of vocabulary of unigrams + bigrams.
@@ -32,10 +29,10 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
     # Arguments
         train_texts: list, training text strings.
         train_labels: np.ndarray, training labels.
-        val_texts: list, validation text strings.
+        test_texts: list, validation text strings.
 
     # Returns
-        x_train, x_val: vectorized training and validation texts
+        x_train, x_test: vectorized training and validation texts
     """
     # Create keyword arguments to pass to the 'tf-idf' vectorizer.
     kwargs = {
@@ -44,22 +41,22 @@ def ngram_vectorize(train_texts, train_labels, val_texts):
             'strip_accents': 'unicode',
             'decode_error': 'replace',
             'analyzer': TOKEN_MODE,  # Split text into word tokens.
-            'min_df': MIN_DOCUMENT_FREQUENCY,
+            'max_df': 0.9,
+            'norm': 'l2', # Normalizes row vectors to have unit norm.
+            'max_features': TOP_K,
     }
     vectorizer = TfidfVectorizer(**kwargs)
 
-    # Learn vocabulary from training texts and vectorize training texts.
+    # Learn vocabulary and idf from training texts and vectorize training texts (Return doc-term sparse matrix).
     x_train = vectorizer.fit_transform(train_texts)
 
     # Vectorize validation texts.
-    x_val = vectorizer.transform(val_texts)
+    x_test = vectorizer.transform(test_texts)
+    tokens = vectorizer.get_feature_names_out()
+    print(tokens[:40])
+    print('Number of tokens:', len(tokens))
 
-    # Select top 'k' of the vectorized features.
-    selector = SelectKBest(f_classif, k=min(TOP_K, x_train.shape[1]))
-    selector.fit(x_train, train_labels)
-    x_train = selector.transform(x_train).astype('float64')
-    x_val = selector.transform(x_val).astype('float64')
-    return x_train, x_val
+    return x_train, x_test
 
 
 
