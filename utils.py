@@ -53,8 +53,9 @@ def ngram_vectorize(train_texts, test_texts):
     # Vectorize validation texts.
     x_test = vectorizer.transform(test_texts)
     tokens = vectorizer.get_feature_names_out()
-    print(tokens[:40])
-    print('Number of tokens:', len(tokens))
+    print(f'\nTokens[:40]: {tokens[:40]}')
+    print('\nNumber of tokens:', len(tokens))
+    print(f'\nStop words: {vectorizer.get_stop_words()}')
 
     return x_train, x_test
 
