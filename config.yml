@@ -1,5 +1,0 @@
-# Classifier - Neural Network
-fit:
-  epochs: 100
-  batch: 8
-  verbose: "auto"
