@@ -83,11 +83,10 @@
  3. **Evaluation**:
      - Models were evaluated based on the Root Mean Square Error (RMSE) metric.
      - A custom RMSE function, `rmse_custom`, was defined to handle the specific requirements of predicting date ranges:
-       $$ rmse\_custom = \begin{cases} 
-      0 & \text{if } [\hat{y}_{min}, \hat{y}_{max}] \subseteq [y_{min}, y_{max}] \\ 
-      \sqrt{\frac{1}{2} (y_{min} - \hat{y}_{min})^2} & \text{otherwise}
-      \end{cases}
-      \] $$
+
+       $ rmse\_custom = 0 if [\hat{y}_{min}, \hat{y}_{max}] \subseteq [y_{min}, y_{max}] $
+       $ rmse\_custom = \sqrt{\frac{1}{2} (y_{min} - \hat{y}_{min})^2}  otherwise $
+     
 
  4. **Hyperparameter Tuning**:
      - Various hyperparameters, such as the number of hidden layers, number of neurons, learning rate, and batch size, were tuned to optimize the model's performance.
