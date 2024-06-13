@@ -84,8 +84,16 @@
      - Models were evaluated based on the Root Mean Square Error (RMSE) metric.
      - A custom RMSE function, `rmse_custom`, was defined to handle the specific requirements of predicting date ranges:
 
-       $ rmse\_custom = 0 if [\hat{y}_{min}, \hat{y}_{max}] \subseteq [y_{min}, y_{max}] $
-       $ rmse\_custom = \sqrt{\frac{1}{2} (y_{min} - \hat{y}_{min})^2}  otherwise $
+       If \([\hat{y}_{\text{min}}, \hat{y}_{\text{max}}] \subseteq [y_{\text{min}}, y_{\text{max}}]\), then
+$$
+\text{rmse\_custom} = 0
+$$
+
+Otherwise,
+$$
+\text{rmse\_custom} = \sqrt{\frac{1}{2} (y_{\text{min}} - \hat{y}_{\text{min}})^2}
+$$
+
      
 
  4. **Hyperparameter Tuning**:
